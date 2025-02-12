@@ -37,7 +37,7 @@ public class Remote {
         button.setIcon(buttonIcon);  // Set the image as the button icon
         button.setHorizontalTextPosition(SwingConstants.CENTER);
         button.setVerticalTextPosition(SwingConstants.CENTER);
-        button.setBounds(remoteButton.getX(), remoteButton.getY(), 50, 25);  // Same size as before
+        button.setBounds(remoteButton.getX(), remoteButton.getY(), 50, 50);  // Same size as before
         button.addActionListener(e -> remoteButton.execute());
         panel.add(button);
     }
