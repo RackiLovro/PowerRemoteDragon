@@ -38,7 +38,14 @@ public class Remote {
         button.setHorizontalTextPosition(SwingConstants.CENTER);
         button.setVerticalTextPosition(SwingConstants.CENTER);
         button.setBounds(remoteButton.getX(), remoteButton.getY(), 50, 50);  // Same size as before
-        button.addActionListener(e -> remoteButton.execute());
+        button.addActionListener(e -> {
+            try {
+            	throw new RuntimeException("This is a test error.");
+                //remoteButton.execute();  // Try executing the ADB command or whatever logic you have
+            } catch (Exception ex) {
+                showErrorDialog(ex.getMessage());  // Show error if an exception occurs
+            }
+        });
         panel.add(button);
     }
 
@@ -62,6 +69,27 @@ public class Remote {
                 frame.setLocation(p.x + deltaX, p.y + deltaY);
             }
         });
+    }
+
+    // Method to display error in a floating window
+    private static void showErrorDialog(String errorMessage) {
+        JDialog errorDialog = new JDialog();
+        errorDialog.setTitle("Error");
+        errorDialog.setSize(300, 150);
+        errorDialog.setLocationRelativeTo(null); // Center the dialog
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        JTextArea textArea = new JTextArea(errorMessage);
+        textArea.setEditable(false);
+        panel.add(textArea, BorderLayout.CENTER);
+
+        JButton closeButton = new JButton("Close");
+        closeButton.addActionListener(e -> errorDialog.dispose());
+        panel.add(closeButton, BorderLayout.SOUTH);
+
+        errorDialog.setContentPane(panel);
+        errorDialog.setVisible(true);
     }
 
     static class BackgroundPanel extends JPanel {
